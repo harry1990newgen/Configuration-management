@@ -1,0 +1,11 @@
+1. Ansible is a open source configuration mgmt tool.
+2. Agentless tool --> why --> You dont need to download any pkg or s/w or anythng on slave or remote systems.
+3.It works on ssh port - 22 , and allow passwordless authentication.
+4. It is used to Automate your tasks using ansible modules instead BASH/other script, these modules are written in python.
+5. Acquired by RedHat in 2015.
+6. Ansible uses YAML language to write playbooks and plays to automate tasks.
+7. Playbook have plays & Plays have Tasks.
+
+8.Ways to automate or run ansible tasks :
+  Ansible CLI commands.
+  Ansible Playbooks.
