@@ -1,0 +1,177 @@
+###############################################
+###### Ansible adhoc commands list ############
+###### Author : Harry #########################
+###### Date : 03/02/2026 ######################
+###############################################
+
+----------------------------------------------------------
+Format : 
+     ansible -m <module> -a <command> <all/hosts/IP/Groupname>
+----------------------------------------------------------- 
+
+ansible -m ping localhost/127.0.0.1/slave1/webservers
+
+command module :
+--------------- 
+ansible -m command -a "uptime" webservers
+ansible -m command -a "who -b" webservers
+ansible -m command -a "yum install vim -y" webservers
+ansible -m command -a "free -g" webservers
+ansible -m command -a "df -Th" webservers
+ansible -m command -a "cp /tmp/file1.txt /etc/" webservers
+ansible -m command -a "mkdir /tmp/ansible-test" webservers
+ansible -m command -a "rm -rf /tmp/ansible-test" webservers
+ansible -m command -a "touch /tmp/ansible-testfile.txt" webservers
+ansible -m command -a "rm -rf /tmp/ansible-testfile.txt" webservers
+ansible -m command -a "useradd ansible-test" webservers
+ansible -m command -a "userdel ansible-test" webservers
+--------------------------------------------------------------------
+
+shell module :
+--------------
+ansible -m shell -a "uptime" webservers
+ansible -m shell -a "who -b" webservers
+ansible -m shell -a "yum install vim -y" webservers
+ansible -m shell -a "free -g" webservers
+ansible -m shell -a "df -Th" webservers
+ansible -m shell -a "cp /tmp/file1.txt /etc/" webservers
+ansible -m shell -a "mkdir /tmp/ansible-test" webservers
+ansible -m shell -a "rm -rf /tmp/ansible-test" webservers
+ansible -m shell -a "touch /tmp/ansible-testfile.txt" webservers
+ansible -m shell -a "rm -rf /tmp/ansible-testfile.txt" webservers
+ansible -m shell -a "useradd ansible-test" webservers
+ansible -m shell -a "userdel ansible-test" webservers
+--------------------------------------------------------------------
+
+
+yum/apt/dnf/zypper module : (state=present/absent)
+--------------------------
+ansible -m yum -a "name=vim state=present" webservers
+ansible -m yum -a "name=git state=present" webservers
+ansible -m yum -a "name=httpd state=present" webservers
+ansible -m yum -a "name=mysql-server state=present" webservers
+ansible -m yum -a "name=ansible state=present" webservers
+ansible -m yum -a "name=bash-completion state=present" webservers
+ansible -m yum -a "name=curl state=present" webservers
+ansible -m yum -a "name=wget state=present" webservers
+ansible -m yum -a "name=rsync state=present" webservers
+ansible -m yum -a "name=firewalld  state=present" webservers
+ansible -m yum -a "name=policycoreutils-python-utils state=present" webservers
+ansible -m yum -a "name=chrony state=present" webservers
+ansible -m yum -a "name=rsyslog state=present" webservers
+ansible -m yum -a "name=fail2ban state=present" webservers
+ansible -m yum -a "name=lsof state=present" webservers
+ansible -m yum -a "name=openssh-server state=present" webservers
+ansible -m yum -a "name=nginx state=present" webservers
+ansible -m yum -a "name=certbot state=present" webservers
+ansible -m yum -a "name=python3-certbot-nginx state=present" webservers
+ansible -m yum -a "name=mariadb-server state=present" webservers
+ansible -m yum -a "name=postgresql-server state=present" webservers
+--------------------------------------------------------------------------
+
+service module : (state=start/stop/restart)
+---------------
+ansible -m service -a "name=httpd state=start" webservers
+ansible -m service -a "name=nginx state=start" webservers
+ansible -m service -a "name=mysqld state=start" webservers
+ansible -m service -a "name=dockerd state=start" webservers
+ansible -m service -a "name=mgsqld state=start" webservers
+ansible -m service -a "name=chronyd state=start" webservers
+ansible -m service -a "name=sshd state=start" webservers
+ansible -m service -a "name=firewalld state=stop" webservers
+ansible -m service -a "name=rsyslogd state=start" webservers
+ansible -m service -a "name=sshd state=start" webservers
+ansible -m service -a "name=NetworkManager state=restart" webservers
+
+-------------------------------------------------------------------------
+
+
+copy module :
+------------ 
+ansible -m copy -a "src=/tmp/file1.txt dest=/etc/" webservers
+ansible -m copy -a "src=/tmp/file2.txt dest=/etc/file2.txt owner=root group=root mode=0644"
+
+ansible -m copy -a "content='Hello Harry' dest=/tmp/hello.txt" webservers
+ansible -m copy -a "src=file3.txt dest=/etc/file3.txt" webservers -b 
+ansible -m copy -a "src=test.txt dest=/tmp/test.txt" webservers --check
+--------------------------------------------------------------------------
+
+
+user module : (state=present/absent)
+------------
+ansible -m user -a "name=harry state=present" webservers
+ansible -m user -a "name=harry state=present create_home=yes" webservers
+ansible -m user -a "name=harry uid=1050 shell=/bin/bash state=present" webservers
+ansible -m user -a "name=harry password='$6$abc123$xyz' state=present" webservers
+ansible -m user -a "name=harry groups=wheel,devops append=yes" webservers
+ansible -m user -a "name=appuser system=yes shell=/sbin/nologin" webservers
+ansible -m user -a "name=harry expires=2026-12-31" webservers
+ansible -m user -a "name=harry password_lock=yes" webservers
+ansible -m user -a "name=harry password_lock=no" webservers
+ansible -m user -a "name=harry state=absent" webservers
+ansible -m user -a "name=harry state=absent remove=yes" webservers
+ansible -m user -a "name=harry comment='DevOps Engineer'" webservers
+---------------------------------------------------------------------
+
+group module :
+--------------
+
+ansible webservers -m group -a "name=devops state=present"
+ansible webservers -m group -a "name=devops gid=2001 state=present"
+ansible webservers -m group -a "name=appgroup system=yes"
+ansible webservers -m group -a "name=devops state=present"
+ansible webservers -m group -a "name=devops state=absent"
+ansible webservers -m group -a "name=appgroup state=absent"
+--------------------------------------------------------------------
+
+lineinfile module :
+---------------------
+
+ansible -m lineinfile -a "path=/etc/ssh/sshd_config line='PermitRootLogin no'" webservers
+ansible webservers -m lineinfile -a "path=/etc/ssh/sshd_config regexp='^PermitRootLogin' line='PermitRootLogin no'"
+ansible webservers -m lineinfile -a "path=/etc/hosts regexp='^192.168.1.10' state=absent"
+ansible webservers -m lineinfile -a "path=/etc/ssh/sshd_config regexp='^#?PasswordAuthentication' line='PasswordAuthentication no'"
+ansible webservers -m lineinfile -a "path=/etc/my.cnf insertafter='^\[mysqld\]' line='max_connections=500'"
+ansible webservers -m lineinfile -a "path=/etc/security/limits.conf insertbefore='^# End of file' line='harry soft nofile 65536'"
+ansible webservers -m lineinfile -a "path=/etc/ssh/sshd_config regexp='^Port' line='Port 2222' backup=yes"
+ansible webservers -m lineinfile -a "path=/etc/app.conf line='debug=false' owner=root group=root mode=0644" -b
+----------------------------------------------------------------------------
+
+script module :
+---------------
+ansible webservers -m script -a "./check_disk.sh"
+ansible webservers -m script -a "./install_packages.sh" -b
+ansible webservers -m script -a "./cleanup_logs.sh /var/log 30"
+ansible webservers -m script -a "scripts/deploy.sh"
+ansible webservers -m script -a "./app_start.sh" -e "APP_ENV=prod APP_PORT=8080"
+ansible webservers[0] -m script -a "./health_check.sh"
+ansible webservers -m script -a "./long_task.sh" -T 120
+
+----------------------------------------------------------------------------
+
+file module :
+-------------
+ansible webservers -m file -a "path=/opt/app state=directory mode=0755 owner=root group=root" -b
+ansible webservers -m file -a "path=/tmp/testfile.txt state=touch mode=0644 owner=harry group=harry"
+ansible webservers -m file -a "path=/tmp/oldfile.txt state=absent" -b
+ansible webservers -m file -a "path=/opt/oldapp state=absent" -b
+ansible webservers -m file -a "src=/opt/app/bin/app dest=/usr/local/bin/app state=link" -b
+ansible webservers -m file -a "path=/opt/app owner=harry group=developers mode=0775" -b
+ansible webservers -m file -a "path=/var/www/html/app state=directory mode=0755 owner=www-data group=www-data" -b
+ansible webservers -m file -a "path=/var/log/myapp state=directory mode=0755 owner=harry group=harry" -b
+ansible webservers -m file -a "path=/etc/myapp/config.ini state=touch mode=0644 owner=root group=root" -b
+
+---------------------------------------------------------------------------
+
+Keep Learning & Keep growing !!!!
+
+Thank you all !!
+
+
+
+
+
+
+
+
+
