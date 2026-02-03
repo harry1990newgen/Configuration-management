@@ -1,0 +1,9 @@
+---
+- name: Shell redirect example
+  hosts: webservers
+  become: yes
+  tasks:
+
+    - name: Save disk usage to file
+      shell: df -h > /tmp/disk_usage.txt
+

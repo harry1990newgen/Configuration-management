@@ -1,0 +1,8 @@
+---
+- name: shell module playbook
+  hosts: webservers
+  tasks:
+
+    - name: Run a simple shell command
+      shell: echo "Hello team , leraning shell module ansible"
+

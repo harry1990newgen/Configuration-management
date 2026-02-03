@@ -1,0 +1,13 @@
+---
+- name: Loop example with command
+  hosts: webservers
+  become: yes
+  tasks:
+
+    - name: Create multiple directories
+      command: mkdir -p /tmp/{{ item }}
+      loop:
+        - app1
+        - app2
+        - app3
+

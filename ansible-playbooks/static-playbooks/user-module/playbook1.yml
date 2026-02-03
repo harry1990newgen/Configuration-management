@@ -1,0 +1,11 @@
+---
+- name: Create a user
+  hosts: webservers
+  become: yes
+  tasks:
+
+    - name: Add user john
+      user:
+        name: pavan
+        state: present
+

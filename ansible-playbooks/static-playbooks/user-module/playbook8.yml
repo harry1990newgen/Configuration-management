@@ -1,0 +1,11 @@
+---
+- name: Expire user account
+  hosts: webservers
+  become: yes
+  tasks:
+
+    - name: Set account expiration
+      user:
+        name: devops
+        expires: 1704067200   # Unix timestamp
+

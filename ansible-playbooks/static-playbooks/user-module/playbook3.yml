@@ -1,0 +1,10 @@
+---
+- name: User with password
+  hosts: all
+  become: yes
+  tasks:
+    - name: Add user with password
+      user:
+        name: devops2
+        password: "$6$randomsalt$eZlQp2JcK9..." 
+

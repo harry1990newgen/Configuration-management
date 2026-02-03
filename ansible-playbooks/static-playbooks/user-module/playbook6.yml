@@ -1,0 +1,12 @@
+---
+- name: Remove user
+  hosts: webservers
+  become: yes
+  tasks:
+
+    - name: Delete user and home
+      user:
+        name: devops
+        state: absent
+        remove: yes
+
