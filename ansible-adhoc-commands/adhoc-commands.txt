@@ -33,7 +33,7 @@ ansible -m shell -a "uptime" webservers
 ansible -m shell -a "who -b" webservers
 ansible -m shell -a "yum install vim -y" webservers
 ansible -m shell -a "free -g" webservers
-ansible -m shell -a "df -Th" webservers
+ansible -m shell -a "df -Th | grep sda1" webservers
 ansible -m shell -a "cp /tmp/file1.txt /etc/" webservers
 ansible -m shell -a "mkdir /tmp/ansible-test" webservers
 ansible -m shell -a "rm -rf /tmp/ansible-test" webservers
